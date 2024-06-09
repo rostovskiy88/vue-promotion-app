@@ -1,120 +1,52 @@
 <template>
-  <v-card class="mx-auto signup-card">
-    <v-card-title class="headline d-flex justify-center">
-      Get started today
+  <v-card class="pa-8" max-width="500">
+    <v-card-title>
+      <v-row align="center" justify="center">
+        <v-icon class="mr-2">mdi-hand-wave</v-icon>
+        <span class="headline">Get started today</span>
+      </v-row>
     </v-card-title>
     <v-card-subtitle class="text-center">Enter your details to create super account.</v-card-subtitle>
-    <v-card-text>
-      <v-form @submit.prevent="onSignUp">
-        <v-row>
-          <v-col cols="6">
-            <v-text-field
-                v-model="name"
-                label="Name"
-                required
-                class="mt-4"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="6">
-            <v-text-field
-                v-model="age"
-                label="Age"
-                required
-                class="mt-4"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-text-field
-            v-model="email"
-            label="Email Address"
-            type="email"
-            required
-            class="mt-4"
-        ></v-text-field>
-        <v-text-field
-            v-model="password"
-            label="Password"
-            type="password"
-            required
-            class="mt-4"
-        ></v-text-field>
-        <v-text-field
-            v-model="confirmPassword"
-            label="Confirm New Password"
-            type="password"
-            required
-            class="mt-4"
-        ></v-text-field>
-        <v-checkbox
-            v-model="termsAccepted"
-            label="I agree to Product Terms and Policy."
-            class="mt-4"
-        ></v-checkbox>
-        <v-btn color="primary" type="submit" block class="mt-4">Get started now</v-btn>
-      </v-form>
+    <v-form>
+      <v-row>
+        <v-col cols="12" sm="6">
+          <v-text-field label="Name" required></v-text-field>
+        </v-col>
+        <v-col cols="12" sm="6">
+          <v-text-field label="Age" required></v-text-field>
+        </v-col>
+      </v-row>
+      <v-text-field label="Email Address" type="email" required></v-text-field>
+      <v-text-field label="Password" type="password" required></v-text-field>
+      <v-text-field label="Confirm New Password" type="password" required></v-text-field>
+      <v-checkbox v-model="agree" label="I agree to Product <router-link to='/terms' class='terms-link'>Terms and Policy</router-link>"></v-checkbox>
+      <v-btn :disabled="!agree" color="primary" class="mt-4" block>Get started now</v-btn>
       <v-divider class="my-4"></v-divider>
-      <div class="text-center mb-4">Or sign up with</div>
-      <div class="d-flex justify-center">
-        <v-btn icon class="social-btn">
-          <v-icon size="36px">
-            <img src="@/assets/google-icon.png" alt="Google" class="icon">
-          </v-icon>
+      <p class="text-center">Or sign up with</p>
+      <v-row class="d-flex justify-center">
+        <v-btn icon>
+          <v-icon>mdi-google</v-icon>
         </v-btn>
-        <v-btn icon class="social-btn ml-4">
-          <v-icon size="36px">
-            <img src="@/assets/facebook-icon.png" alt="Facebook" class="icon">
-          </v-icon>
+        <v-btn icon>
+          <v-icon>mdi-facebook</v-icon>
         </v-btn>
-      </div>
-    </v-card-text>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn text @click="login">Already have an account? Login</v-btn>
-    </v-card-actions>
+      </v-row>
+      <p class="text-center mt-4">Already have an account? <router-link to="/login">Login</router-link></p>
+    </v-form>
   </v-card>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref } from 'vue';
 
-const name = ref('');
-const age = ref('');
-const email = ref('');
-const password = ref('');
-const confirmPassword = ref('');
-const termsAccepted = ref(false);
-
-const onSignUp = () => {
-  console.log('Sign Up:', name.value, age.value, email.value, password.value, confirmPassword.value, termsAccepted.value);
-};
-
-const login = () => {
-  console.log('Login');
-};
+const agree = ref(false);
 </script>
 
 <style scoped>
-.signup-card {
-  padding: 20px;
-  margin-top: 20px;
-  width: 100%;
-  max-width: 400px;
+.headline {
+  font-weight: bold;
 }
-.v-btn {
-  margin-bottom: 10px;
-}
-.social-btn {
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.icon {
-  width: 36px;
-  height: 36px;
+.terms-link {
+  color: blue;
 }
 </style>
