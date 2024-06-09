@@ -1,52 +1,77 @@
 <template>
-  <v-card class="pa-8" max-width="500">
-    <v-card-title>
-      <v-row align="center" justify="center">
-        <v-icon class="mr-2">mdi-hand-wave</v-icon>
-        <span class="headline">Get started today</span>
-      </v-row>
-    </v-card-title>
-    <v-card-subtitle class="text-center">Enter your details to create super account.</v-card-subtitle>
-    <v-form>
-      <v-row>
-        <v-col cols="12" sm="6">
-          <v-text-field label="Name" required></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="6">
-          <v-text-field label="Age" required></v-text-field>
-        </v-col>
-      </v-row>
-      <v-text-field label="Email Address" type="email" required></v-text-field>
-      <v-text-field label="Password" type="password" required></v-text-field>
-      <v-text-field label="Confirm New Password" type="password" required></v-text-field>
-      <v-checkbox v-model="agree" label="I agree to Product <router-link to='/terms' class='terms-link'>Terms and Policy</router-link>"></v-checkbox>
-      <v-btn :disabled="!agree" color="primary" class="mt-4" block>Get started now</v-btn>
-      <v-divider class="my-4"></v-divider>
-      <p class="text-center">Or sign up with</p>
-      <v-row class="d-flex justify-center">
+  <v-form>
+    <h1 class="title">Get started today</h1>
+    <p class="subtitle">Enter your details to create super account.</p>
+
+    <v-text-field label="Name" required></v-text-field>
+    <v-text-field label="Age" required></v-text-field>
+    <v-text-field label="Email Address" required></v-text-field>
+    <v-text-field label="Password" type="password" required></v-text-field>
+    <v-text-field label="Confirm New Password" type="password" required></v-text-field>
+
+    <v-checkbox v-model="termsAccepted">
+      <template #label>
+        I agree to Product <router-link to="/terms" class="terms-link">Terms and Policy</router-link>.
+      </template>
+    </v-checkbox>
+
+    <v-btn :disabled="!termsAccepted" class="submit-button" color="primary">Get started now</v-btn>
+
+    <div class="social-login">
+      <p>Or sign up with</p>
+      <div class="social-buttons">
         <v-btn icon>
-          <v-icon>mdi-google</v-icon>
+          <img src="@/assets/google-icon.png" alt="Google" />
         </v-btn>
         <v-btn icon>
-          <v-icon>mdi-facebook</v-icon>
+          <img src="@/assets/facebook-icon.png" alt="Facebook" />
         </v-btn>
-      </v-row>
-      <p class="text-center mt-4">Already have an account? <router-link to="/login">Login</router-link></p>
-    </v-form>
-  </v-card>
+      </div>
+    </div>
+
+    <p class="login-link">Already have an account? <router-link to="/login">Login</router-link></p>
+  </v-form>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 
-const agree = ref(false);
+const termsAccepted = ref(false);
 </script>
 
 <style scoped>
-.headline {
+.title {
+  font-size: 24px;
   font-weight: bold;
 }
+
+.subtitle {
+  margin-bottom: 24px;
+}
+
+.submit-button {
+  width: 100%;
+  margin: 24px 0;
+}
+
+.social-login {
+  text-align: center;
+  margin: 24px 0;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 24px;
+}
+
 .terms-link {
-  color: blue;
+  color: #1976d2;
+  text-decoration: none;
 }
 </style>
